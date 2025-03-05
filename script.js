@@ -12,6 +12,20 @@ function obterPontos() {
     };
 }
 
+function salvarTela(isDark) {
+    localStorage.setItem("isDarken", isDark);
+}
+
+function obterTema() {
+    return localStorage.getItem("isDarken") === "true";
+}
+
+var dark = document.getElementById('darkButton');
+
+var isDark = obterTema();
+document.body.style.backgroundColor = isDark ? "#2c3e50" : "#fff";
+
+var dark = document.getElementById('darkButton')
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
@@ -25,9 +39,6 @@ var _playerPoint = obterPontos().playerPoints;
 var _pcPoint = obterPontos().pcPoints;
 
 var reset = document.getElementById('reset')
-
-var dark = document.getElementById('darkButton')
-var isDark = true
 
 playerPointElement.textContent = _playerPoint;
 pcPointElement.textContent = _pcPoint;
@@ -121,11 +132,7 @@ reset.addEventListener('click', () => {
 })
 
 dark.addEventListener('click', () => {
-    if (isDark == true){
-        document.body.style.backgroundColor = "#2c3e50"
-        isDark = false
-    }else{
-        document.body.style.backgroundColor = "#fff"
-        isDark = true
-    }
-})
+    isDark = !isDark; // Alterna entre claro e escuro
+    document.body.style.backgroundColor = isDark ? "#2c3e50" : "#fff";
+    salvarTela(isDark);
+});
